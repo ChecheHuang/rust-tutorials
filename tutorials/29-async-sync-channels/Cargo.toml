@@ -1,0 +1,11 @@
+[package]
+name = "ch29-async-sync-channels"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch29"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }

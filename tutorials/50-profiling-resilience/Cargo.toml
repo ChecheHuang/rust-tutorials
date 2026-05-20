@@ -1,0 +1,19 @@
+[package]
+name = "ch50-profiling-resilience"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch50"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+tower = { version = "0.5", features = ["full"] }
+hyper = "1"
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+governor = "0.7"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }
+rand = "0.8"

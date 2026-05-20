@@ -1,0 +1,8 @@
+[package]
+name = "ch20-modules-workspace"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch20"
+path = "src/main.rs"

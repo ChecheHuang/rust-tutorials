@@ -1,0 +1,12 @@
+[package]
+name = "ch24-config"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch24"
+path = "src/main.rs"
+
+[dependencies]
+serde = { workspace = true }
+toml = "0.8"

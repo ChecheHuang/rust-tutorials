@@ -1,0 +1,8 @@
+[package]
+name = "ch18-unsafe-ffi"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch18"
+path = "src/main.rs"

@@ -1,0 +1,11 @@
+[package]
+name = "ch28-send-sync-pin"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch28"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }

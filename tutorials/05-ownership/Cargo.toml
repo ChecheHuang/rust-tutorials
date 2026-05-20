@@ -1,0 +1,8 @@
+[package]
+name = "ch05-ownership"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch05"
+path = "src/main.rs"

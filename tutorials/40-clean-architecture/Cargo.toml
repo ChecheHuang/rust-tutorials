@@ -1,0 +1,16 @@
+[package]
+name = "ch40-clean-architecture"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch40"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+async-trait = "0.1"
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

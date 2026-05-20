@@ -1,0 +1,19 @@
+[package]
+name = "ch22-cargo-advanced"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch22"
+path = "src/main.rs"
+
+[features]
+default = ["fancy"]
+fancy = []
+extra = []
+
+[dependencies]
+serde = { workspace = true, optional = true }
+
+[dev-dependencies]
+# 只在測試時編譯

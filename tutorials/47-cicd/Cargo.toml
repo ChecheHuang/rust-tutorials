@@ -1,0 +1,10 @@
+[package]
+name = "ch47-cicd"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch47"
+path = "src/main.rs"
+
+[dependencies]

@@ -1,0 +1,8 @@
+[package]
+name = "ch09-collections"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch09"
+path = "src/main.rs"

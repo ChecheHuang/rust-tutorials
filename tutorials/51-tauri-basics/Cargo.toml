@@ -1,0 +1,23 @@
+# 注意：Tauri 章節從 workspace 排除（root Cargo.toml exclude），
+# 這樣可以使用獨立 toolchain / target，且不會干擾其他章節 build。
+#
+# 真實開發 Tauri 專案請用：
+#   cargo create-tauri-app
+# 本檔僅作說明範例。
+
+[package]
+name = "ch51-tauri-basics"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "ch51_tauri_basics_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }

@@ -1,0 +1,12 @@
+[package]
+name = "ch19-advanced-errors"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch19"
+path = "src/main.rs"
+
+[dependencies]
+thiserror = { workspace = true }
+anyhow = { workspace = true }

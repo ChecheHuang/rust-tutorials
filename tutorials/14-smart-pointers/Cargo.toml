@@ -1,0 +1,8 @@
+[package]
+name = "ch14-smart-pointers"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch14"
+path = "src/main.rs"

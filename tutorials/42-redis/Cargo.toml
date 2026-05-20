@@ -1,0 +1,18 @@
+[package]
+name = "ch42-redis"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch42"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+futures = { workspace = true }
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

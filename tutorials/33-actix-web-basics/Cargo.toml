@@ -1,0 +1,18 @@
+[package]
+name = "ch33-actix-web-basics"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch33"
+path = "src/main.rs"
+
+[dependencies]
+actix-web = "4"
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing-actix-web = "0.7"
+thiserror = { workspace = true }

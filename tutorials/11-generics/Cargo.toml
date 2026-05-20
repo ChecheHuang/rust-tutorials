@@ -1,0 +1,8 @@
+[package]
+name = "ch11-generics"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch11"
+path = "src/main.rs"

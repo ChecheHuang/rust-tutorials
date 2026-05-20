@@ -1,0 +1,84 @@
+[workspace]
+resolver = "2"
+members = [
+    "tutorials/01-cargo-setup",
+    "tutorials/02-variables-types",
+    "tutorials/03-control-flow",
+    "tutorials/04-functions-closures",
+    "tutorials/05-ownership",
+    "tutorials/06-borrowing",
+    "tutorials/07-slices-strings",
+    "tutorials/08-struct-enum",
+    "tutorials/09-collections",
+    "tutorials/10-error-handling",
+    "tutorials/11-generics",
+    "tutorials/12-traits",
+    "tutorials/13-lifetimes",
+    "tutorials/14-smart-pointers",
+    "tutorials/15-iterators",
+    "tutorials/16-declarative-macros",
+    "tutorials/17-procedural-macros",
+    "tutorials/18-unsafe-ffi",
+    "tutorials/19-advanced-errors",
+    "tutorials/20-modules-workspace",
+    "tutorials/21-testing",
+    "tutorials/22-cargo-advanced",
+    "tutorials/23-tracing-log",
+    "tutorials/24-config",
+    "tutorials/25-benchmark",
+    "tutorials/26-async-await",
+    "tutorials/27-tokio",
+    "tutorials/28-send-sync-pin",
+    "tutorials/29-async-sync-channels",
+    "tutorials/30-streams",
+    "tutorials/31-http-hyper",
+    "tutorials/32-axum-basics",
+    "tutorials/33-actix-web-basics",
+    "tutorials/34-serde-json",
+    "tutorials/35-sqlx-postgres",
+    "tutorials/36-seaorm",
+    "tutorials/37-middleware-tower",
+    "tutorials/38-jwt-auth",
+    "tutorials/39-websocket",
+    "tutorials/40-clean-architecture",
+    "tutorials/41-dependency-injection",
+    "tutorials/42-redis",
+    "tutorials/43-grpc-tonic",
+    "tutorials/44-message-queue",
+    "tutorials/45-cqrs",
+    "tutorials/46-docker",
+    "tutorials/47-cicd",
+    "tutorials/48-kubernetes",
+    "tutorials/49-prometheus-otel",
+    "tutorials/50-profiling-resilience",
+]
+exclude = [
+    "tutorials/51-tauri-basics",
+    "tutorials/52-tauri-system",
+    "tutorials/53-hidapi-usb",
+    "tutorials/54-desktop-packaging",
+    "capstones/01-cli-tool",
+    "capstones/02-rgb-controller",
+]
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.75"
+version = "0.1.0"
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+anyhow = "1"
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+clap = { version = "4", features = ["derive", "env"] }
+futures = "0.3"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "debuginfo"

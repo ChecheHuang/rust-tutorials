@@ -1,0 +1,23 @@
+[package]
+name = "ch44-message-queue"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch44-nats"
+path = "src/nats_demo.rs"
+
+[[bin]]
+name = "ch44-redis-stream"
+path = "src/redis_stream.rs"
+
+[dependencies]
+tokio = { workspace = true }
+async-nats = "0.36"
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager", "streams"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+futures = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

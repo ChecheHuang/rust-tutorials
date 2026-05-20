@@ -1,0 +1,15 @@
+[package]
+name = "ch17-procedural-macros"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch17"
+path = "src/main.rs"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+# 本章主要展示 *使用* proc macro；自寫 proc macro 需要獨立 crate type
+# 完整範例見 ROADMAP 延伸專案

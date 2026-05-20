@@ -1,0 +1,24 @@
+# Tauri 章節：從 workspace 排除，獨立 build。
+[package]
+name = "ch52-tauri-system"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "ch52_tauri_system_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-fs = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-shell = "2"
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-autostart = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }

@@ -1,0 +1,12 @@
+[package]
+name = "ch23-tracing-log"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch23"
+path = "src/main.rs"
+
+[dependencies]
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

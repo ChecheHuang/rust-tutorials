@@ -1,0 +1,8 @@
+[package]
+name = "ch16-declarative-macros"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch16"
+path = "src/main.rs"

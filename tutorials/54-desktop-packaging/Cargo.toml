@@ -1,0 +1,11 @@
+# 排除於 workspace。本章主要是配置與流程，不真的 build runnable bin。
+[package]
+name = "ch54-desktop-packaging"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ch54"
+path = "src/main.rs"
+
+[dependencies]

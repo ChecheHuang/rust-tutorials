@@ -1,0 +1,8 @@
+[package]
+name = "ch21-testing"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch21"
+path = "src/main.rs"

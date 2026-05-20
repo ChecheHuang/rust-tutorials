@@ -1,0 +1,16 @@
+[package]
+name = "ch41-dependency-injection"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch41"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+async-trait = "0.1"
+anyhow = { workspace = true }
+shaku = "0.6"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

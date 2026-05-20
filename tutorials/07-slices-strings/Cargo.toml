@@ -1,0 +1,8 @@
+[package]
+name = "ch07-slices-strings"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch07"
+path = "src/main.rs"

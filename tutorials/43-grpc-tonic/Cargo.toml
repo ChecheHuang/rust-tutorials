@@ -1,0 +1,24 @@
+[package]
+name = "ch43-grpc-tonic"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch43-server"
+path = "src/server.rs"
+
+[[bin]]
+name = "ch43-client"
+path = "src/client.rs"
+
+[dependencies]
+tokio = { workspace = true }
+tokio-stream = "0.1"
+tonic = "0.12"
+prost = "0.13"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }
+
+[build-dependencies]
+tonic-build = "0.12"

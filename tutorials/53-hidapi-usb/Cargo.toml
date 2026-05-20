@@ -1,0 +1,19 @@
+# 從 workspace 排除（HID device 互動，CI 跑不了）
+[package]
+name = "ch53-hidapi-usb"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "list-devices"
+path = "src/list_devices.rs"
+
+[[bin]]
+name = "read-keyboard"
+path = "src/read_keyboard.rs"
+
+[dependencies]
+hidapi = "2"
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

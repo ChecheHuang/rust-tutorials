@@ -1,0 +1,8 @@
+[package]
+name = "ch10-error-handling"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch10"
+path = "src/main.rs"

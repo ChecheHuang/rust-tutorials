@@ -1,0 +1,18 @@
+[package]
+name = "ch37-middleware-tower"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch37"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+axum = "0.7"
+tower = { version = "0.5", features = ["full"] }
+tower-http = { version = "0.6", features = ["trace", "cors", "timeout", "compression-gzip", "limit"] }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

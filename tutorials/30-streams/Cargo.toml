@@ -1,0 +1,13 @@
+[package]
+name = "ch30-streams"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch30"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+tokio-stream = "0.1"
+futures = { workspace = true }

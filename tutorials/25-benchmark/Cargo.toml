@@ -1,0 +1,15 @@
+[package]
+name = "ch25-benchmark"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch25"
+path = "src/main.rs"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "sum_methods"
+harness = false

@@ -1,0 +1,8 @@
+[package]
+name = "ch04-functions-closures"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch04"
+path = "src/main.rs"

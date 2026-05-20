@@ -1,0 +1,8 @@
+[package]
+name = "ch12-traits"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch12"
+path = "src/main.rs"

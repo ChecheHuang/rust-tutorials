@@ -1,0 +1,8 @@
+[package]
+name = "ch08-struct-enum"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch08"
+path = "src/main.rs"

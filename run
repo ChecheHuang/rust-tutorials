@@ -1,0 +1,155 @@
+#!/bin/bash
+# rust-tutorials 快速指令
+#
+#   ./run                   互動選章節（列表 + 輸入編號）
+#   ./run 32                直接跑第 32 章
+#   ./run 32 -- arg1 arg2   傳參數給 binary
+#   ./run cap1 -- foo .     跑 capstone 1 (mini-rg)
+#   ./run cap2 -- list      跑 capstone 2 (rgb-cli)
+#   ./run list              只列章節
+#   ./run readme 32         開該章 README
+#   ./run check / test / lint / clean
+
+set -e
+cd "$(dirname "$0")"
+
+# Git Bash 預設不會載入 cargo 的 PATH，這裡補上
+export PATH="$HOME/.cargo/bin:$PATH"
+
+find_chapter() {
+    local n="$1"
+    if [ ${#n} -eq 1 ]; then n="0$n"; fi
+    local dir
+    dir=$(ls tutorials/ | grep "^${n}-" | head -1)
+    if [ -z "$dir" ]; then
+        echo "找不到第 $1 章" >&2
+        exit 1
+    fi
+    echo "$dir"
+}
+
+list_chapters() {
+    echo ""
+    echo "  ===== Rust Tutorials ====="
+    echo ""
+    echo "  Part 1 — 基礎與所有權"
+    ls tutorials/ | grep -E '^(0[1-9]|10)-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 2 — 型別系統與抽象"
+    ls tutorials/ | grep -E '^(1[1-9])-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 3 — 工程化基礎"
+    ls tutorials/ | grep -E '^(2[0-5])-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 4 — 非同步"
+    ls tutorials/ | grep -E '^(2[6-9]|30)-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 5 — Web"
+    ls tutorials/ | grep -E '^(3[1-9])-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 6 — 分散式與架構"
+    ls tutorials/ | grep -E '^(4[0-5])-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 7 — 部署與可觀測性"
+    ls tutorials/ | grep -E '^(4[6-9]|50)-' | sed 's/^/    /'
+    echo ""
+    echo "  Part 8 — 桌面 (Tauri，獨立 build)"
+    ls tutorials/ | grep -E '^(5[1-4])-' | sed 's/^/    /'
+    echo ""
+    echo "  Capstones"
+    echo "    cap1  → mini-rg (CLI 工具)"
+    echo "    cap2  → rgb-controller (rgb-cli)"
+    echo ""
+}
+
+run_chapter() {
+    local n="$1"
+    shift
+    local dir
+    dir=$(find_chapter "$n")
+    case "$dir" in
+        43-*) echo "ch43 有兩個 bin："
+              echo "  cargo run -p ch43-grpc-tonic --bin ch43-server"
+              echo "  cargo run -p ch43-grpc-tonic --bin ch43-client"
+              exit 1 ;;
+        44-*) echo "ch44 有兩個 bin："
+              echo "  cargo run -p ch44-message-queue --bin ch44-nats"
+              echo "  cargo run -p ch44-message-queue --bin ch44-redis-stream"
+              exit 1 ;;
+        5[1-4]-*) echo "Tauri 章節 (51-54) 從 workspace 排除，需要 npm + tauri-cli。請看該章 README。"
+              exit 1 ;;
+        *) cargo run -p "ch${dir}" "$@" ;;
+    esac
+}
+
+case "${1:-pick}" in
+    pick)
+        list_chapters
+        read -rp "輸入章節編號 (e.g. 14)、cap1/cap2，或 Enter 退出: " n
+        if [ -z "$n" ]; then exit 0; fi
+        case "$n" in
+            cap1) exec cargo run --manifest-path capstones/01-cli-tool/Cargo.toml ;;
+            cap2) exec cargo run --manifest-path capstones/02-rgb-controller/Cargo.toml --bin rgb-cli -- list ;;
+            *)    run_chapter "$n" ;;
+        esac
+        ;;
+
+    list|ls)
+        list_chapters
+        ;;
+
+    check)
+        cargo check --workspace ;;
+    test)
+        cargo test --workspace ;;
+    lint)
+        cargo fmt --all --check && cargo clippy --workspace --all-targets -- -D warnings ;;
+    clean)
+        cargo clean ;;
+
+    readme)
+        if [ -z "$2" ]; then echo "用法：./run readme <章節編號|cap1|cap2>"; exit 1; fi
+        case "$2" in
+            cap1) less capstones/01-cli-tool/README.md ;;
+            cap2) less capstones/02-rgb-controller/README.md ;;
+            *)    dir=$(find_chapter "$2"); less "tutorials/$dir/README.md" ;;
+        esac
+        ;;
+
+    cap1)
+        shift
+        cargo run --manifest-path capstones/01-cli-tool/Cargo.toml -- "$@" ;;
+
+    cap2)
+        shift
+        cargo run --manifest-path capstones/02-rgb-controller/Cargo.toml --bin rgb-cli -- "$@" ;;
+
+    [0-9]|[0-9][0-9])
+        n=$1
+        shift
+        run_chapter "$n" "$@" ;;
+
+    help|--help|-h)
+        cat <<EOF
+
+  ./run                  互動選章節（列表 + 輸入編號）
+  ./run 32               跑第 32 章
+  ./run 32 -- arg        傳參數給 binary
+  ./run cap1 -- foo .    跑 capstone 1 (mini-rg)
+  ./run cap2 -- list     跑 capstone 2 (rgb-cli)
+  ./run list             只列章節
+  ./run readme 32        看第 32 章 README
+
+  ./run check            cargo check 全 workspace
+  ./run test             cargo test 全 workspace
+  ./run lint             fmt --check + clippy -D warnings
+  ./run clean            cargo clean
+
+EOF
+        ;;
+
+    *)
+        echo "未知指令：$1"
+        echo "跑 ./run help 看用法"
+        exit 1 ;;
+esac

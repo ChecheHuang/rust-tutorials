@@ -1,0 +1,8 @@
+[package]
+name = "ch13-lifetimes"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch13"
+path = "src/main.rs"

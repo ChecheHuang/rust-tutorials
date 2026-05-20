@@ -1,0 +1,8 @@
+[package]
+name = "ch15-iterators"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "ch15"
+path = "src/main.rs"
