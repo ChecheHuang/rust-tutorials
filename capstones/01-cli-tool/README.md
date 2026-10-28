@@ -2,6 +2,8 @@
 
 整合 Part 1–3 所學的小型實戰專案。完成後你應該對 Rust 的 ownership / error handling / iterator / 並發 / 測試流程都有實際手感。
 
+> 🧸 想先用故事直覺理解這個專案？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 > 上層規劃見 [../../ROADMAP.md](../../ROADMAP.md)。
 
 ## 題目（三選一，或自訂同等規模）

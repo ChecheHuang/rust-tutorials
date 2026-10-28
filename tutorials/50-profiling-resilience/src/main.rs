@@ -1,7 +1,7 @@
 // 韌性模式範例：
 //   1. timeout
 //   2. retry with exponential backoff + jitter
-//   3. circuit breaker（簡化）
+//   3. circuit breaker（closed / open / half-open）
 //   4. rate limit（client 端，governor）
 
 use anyhow::Result;
@@ -47,21 +47,36 @@ where
     unreachable!()
 }
 
-// ── 3. circuit breaker（簡化版） ───────────────────────────
+// ── 3. circuit breaker ─────────────────────────────────────
+//
+//   Closed ──連續 N 次失敗──▶ Open ──冷卻時間到──▶ HalfOpen
+//     ▲                        ▲                    │
+//     └──────── 探測成功 ───────┼────────────────────┤
+//                              └──── 探測失敗 ──────┘
+//
+// HalfOpen 只放「一個」探測請求過去，其他請求照樣快速失敗，
+// 避免後端剛恢復就被整批流量再打掛。
+#[derive(Debug, Clone, Copy)]
+enum BreakerState {
+    Closed { failures: u64 },
+    Open { until: std::time::Instant },
+    /// 已放出一個探測請求，結果回來前其他請求一律拒絕
+    HalfOpen,
+}
+
 #[derive(Clone)]
 struct Breaker {
-    fail_count: Arc<AtomicU64>,
+    // 只在 await 之外短暫持有，用 std Mutex 即可（第 29 章）
+    state: Arc<std::sync::Mutex<BreakerState>>,
     threshold: u64,
-    open_until: Arc<tokio::sync::Mutex<Option<std::time::Instant>>>,
     cooldown: Duration,
 }
 
 impl Breaker {
     fn new(threshold: u64, cooldown: Duration) -> Self {
         Self {
-            fail_count: Arc::new(AtomicU64::new(0)),
+            state: Arc::new(std::sync::Mutex::new(BreakerState::Closed { failures: 0 })),
             threshold,
-            open_until: Arc::new(tokio::sync::Mutex::new(None)),
             cooldown,
         }
     }
@@ -71,29 +86,52 @@ impl Breaker {
         F: FnOnce() -> Fut,
         Fut: std::future::Future<Output = Result<T>>,
     {
+        // 1. 決定這個請求能不能過
         {
-            let guard = self.open_until.lock().await;
-            if let Some(t) = *guard {
-                if std::time::Instant::now() < t {
+            let mut st = self.state.lock().unwrap();
+            match *st {
+                BreakerState::Closed { .. } => {}
+                BreakerState::Open { until } if std::time::Instant::now() < until => {
                     return Err(anyhow::anyhow!("circuit open"));
                 }
-            }
-        }
-        match op().await {
-            Ok(v) => {
-                self.fail_count.store(0, Ordering::Relaxed);
-                Ok(v)
-            }
-            Err(e) => {
-                let n = self.fail_count.fetch_add(1, Ordering::Relaxed) + 1;
-                if n >= self.threshold {
-                    let mut g = self.open_until.lock().await;
-                    *g = Some(std::time::Instant::now() + self.cooldown);
-                    warn!(failures = n, cooldown_ms = self.cooldown.as_millis(), "circuit OPEN");
+                BreakerState::Open { .. } => {
+                    // 冷卻結束：自己當探測請求
+                    *st = BreakerState::HalfOpen;
+                    info!("circuit HALF-OPEN, probing");
                 }
-                Err(e)
+                BreakerState::HalfOpen => {
+                    return Err(anyhow::anyhow!("circuit half-open, probe in flight"));
+                }
             }
         }
+
+        // 2. 真的去打後端（不持有鎖）
+        let res = op().await;
+
+        // 3. 依結果更新狀態
+        let mut st = self.state.lock().unwrap();
+        match (&res, *st) {
+            (Ok(_), BreakerState::HalfOpen) => {
+                *st = BreakerState::Closed { failures: 0 };
+                info!("probe ok, circuit CLOSED");
+            }
+            (Ok(_), _) => *st = BreakerState::Closed { failures: 0 },
+            (Err(_), BreakerState::HalfOpen) => {
+                *st = BreakerState::Open { until: std::time::Instant::now() + self.cooldown };
+                warn!("probe failed, circuit OPEN again");
+            }
+            (Err(_), BreakerState::Closed { failures }) => {
+                let n = failures + 1;
+                if n >= self.threshold {
+                    *st = BreakerState::Open { until: std::time::Instant::now() + self.cooldown };
+                    warn!(failures = n, cooldown_ms = self.cooldown.as_millis(), "circuit OPEN");
+                } else {
+                    *st = BreakerState::Closed { failures: n };
+                }
+            }
+            (Err(_), BreakerState::Open { .. }) => {}
+        }
+        res
     }
 }
 
@@ -145,12 +183,23 @@ async fn main() -> Result<()> {
     // circuit breaker demo
     println!("\n=== circuit breaker ===");
     let cb = Breaker::new(3, Duration::from_millis(500));
-    for i in 0..6 {
+    // 連續失敗 3 次 → OPEN，之後 2 次直接被拒（沒打後端）
+    for i in 0..5 {
         let r: Result<()> = cb.call(|| async {
             Err(anyhow::anyhow!("fail {i}"))
         }).await;
         info!(i, ?r, "call");
     }
+    // 冷卻後第一個請求當探測：這次故意失敗 → 再 OPEN
+    tokio::time::sleep(Duration::from_millis(600)).await;
+    let r: Result<()> = cb.call(|| async { Err(anyhow::anyhow!("still down")) }).await;
+    info!(?r, "probe #1");
+    // 再冷卻一次，探測成功 → CLOSED，之後恢復正常
+    tokio::time::sleep(Duration::from_millis(600)).await;
+    let r = cb.call(|| async { Ok::<_, anyhow::Error>("recovered") }).await;
+    info!(?r, "probe #2");
+    let r = cb.call(|| async { Ok::<_, anyhow::Error>("normal") }).await;
+    info!(?r, "after close");
 
     // rate limit demo
     println!("\n=== rate limit (5/s) ===");

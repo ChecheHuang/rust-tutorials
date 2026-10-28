@@ -2,6 +2,8 @@
 
 > 範圍：函式 / struct / enum 泛型、where clause、monomorphization、const generics
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼要泛型
 
 寫過幾次 `largest_i32`、`largest_f64`、`largest_str` 就會煩——程式碼幾乎一樣。泛型 = 寫**一次**，編譯器在使用點**產生多份**特化版本。

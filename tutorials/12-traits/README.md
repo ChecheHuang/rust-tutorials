@@ -2,6 +2,8 @@
 
 > 範圍：trait 定義 / 實作、default method、associated type、trait object、orphan rule、blanket impl
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Trait = 「能做什麼」的合約
 
 ```rust

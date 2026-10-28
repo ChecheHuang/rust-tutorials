@@ -2,6 +2,8 @@
 
 > 範圍：connection pool、query macro、transaction、migrations、compile-time checked SQL
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## sqlx 在 Rust ORM 生態的定位
 
 | 工具 | 風格 |

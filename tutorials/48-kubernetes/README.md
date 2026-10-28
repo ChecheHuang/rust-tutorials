@@ -2,6 +2,8 @@
 
 > 範圍：deployment / service、liveness / readiness、graceful shutdown、HPA、secret / configmap、kube-rs operator
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Rust app 上 K8s 要做對的幾件事
 
 1. **listen 0.0.0.0**（不是 127.0.0.1）→ container 外連得進

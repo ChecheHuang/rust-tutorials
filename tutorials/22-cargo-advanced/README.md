@@ -2,6 +2,8 @@
 
 > 範圍：features、profiles、build.rs、workspace.dependencies、cargo-make
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Features — 編譯期開關
 
 ```toml

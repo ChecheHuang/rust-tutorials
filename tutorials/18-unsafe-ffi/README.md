@@ -2,6 +2,8 @@
 
 > 範圍：unsafe 邊界、raw pointer、extern "C"、cbindgen 入門
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## `unsafe` 不是「關掉安全」
 
 很多人誤解 `unsafe` 是「告訴編譯器不用檢查」。**錯**。`unsafe` 真正的意思是：

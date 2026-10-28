@@ -2,6 +2,8 @@
 
 > 範圍：Router、handler、extractor（Path / Query / Json / State）、IntoResponse
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## axum 是什麼
 
 - 建立在 **hyper + tokio + tower** 上

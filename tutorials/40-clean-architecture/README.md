@@ -2,6 +2,8 @@
 
 > 範圍：分層、port-adapter、trait object 作為 port、composition root
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼分層
 
 不是為了「看起來專業」，而是讓**核心業務邏輯不依賴外部世界**：

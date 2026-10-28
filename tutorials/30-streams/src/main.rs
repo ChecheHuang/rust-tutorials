@@ -56,7 +56,7 @@ async fn main() {
         .await;
     println!("take_while<7: {v:?}");
 
-    println!("\n=== chunks_timeout ===");
+    println!("\n=== ready_chunks：有多少拿多少（最多 4） ===");
     let (tx, rx) = mpsc::channel(16);
     tokio::spawn(async move {
         for i in 1..=10 {
@@ -66,6 +66,29 @@ async fn main() {
     });
 
     let mut s = ReceiverStream::new(rx).ready_chunks(4);
+    while let Some(chunk) = s.next().await {
+        println!("chunk: {chunk:?}");
+    }
+
+    println!("\n=== chunks_timeout：滿 4 個或等 50ms 就出一批 ===");
+    let (tx, rx) = mpsc::channel(16);
+    tokio::spawn(async move {
+        for i in 1..=10 {
+            tx.send(i).await.unwrap();
+            // 前 5 個連發 → 湊滿 4 個出一批；之後變慢 → 等到 timeout 才出
+            let gap = if i < 5 { 5 } else { 80 };
+            sleep(Duration::from_millis(gap)).await;
+        }
+    });
+
+    // chunks_timeout 來自 tokio_stream::StreamExt（需 "time" feature），
+    // 跟 futures::StreamExt 同名 trait，所以用完整路徑呼叫避免衝突。
+    let s = tokio_stream::StreamExt::chunks_timeout(
+        ReceiverStream::new(rx),
+        4,
+        Duration::from_millis(50),
+    );
+    tokio::pin!(s);
     while let Some(chunk) = s.next().await {
         println!("chunk: {chunk:?}");
     }

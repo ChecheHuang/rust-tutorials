@@ -2,6 +2,8 @@
 
 > 範圍：connection manager、常用指令、cache aside、rate limit、pub/sub、Lua
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## crate 選擇
 
 | crate | 特點 |

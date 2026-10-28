@@ -2,6 +2,8 @@
 
 > 範圍：#[tokio::main]、runtime、spawn、block_on、cooperative scheduling
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Tokio 是什麼
 
 Tokio 提供：

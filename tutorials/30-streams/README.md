@@ -2,6 +2,8 @@
 
 > 範圍：Stream trait、StreamExt、async iteration、tokio-stream、buffer / chunks
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 什麼是 Stream
 
 ```rust
@@ -84,15 +86,23 @@ while let Some(x) = stream.next().await { ... }
 
 或是用 `BroadcastStream`、`WatchStream` 等其他 wrapper。
 
-## 批次處理：`chunks` / `ready_chunks`
+## 批次處理：`chunks` / `ready_chunks` / `chunks_timeout`
 
 ```rust
+// futures::StreamExt
 stream.chunks(100)         // 每滿 100 個 yield Vec
 stream.ready_chunks(100)   // 有多少拿多少（最多 100）
+
+// tokio_stream::StreamExt（Cargo.toml 要開 features = ["time"]）
 stream.chunks_timeout(100, Duration::from_millis(50))   // 滿或超時
 ```
 
 實作「批次寫 DB」、「批次 flush」的標準模式。
+
+注意兩點（範例 `src/main.rs` 都有示範）：
+
+- `futures::StreamExt` 和 `tokio_stream::StreamExt` 是**同名 trait**，同時 `use` 會衝突。常見做法是只 import 一個，另一個用完整路徑呼叫：`tokio_stream::StreamExt::chunks_timeout(s, 4, d)`。
+- `chunks_timeout` 回傳的 stream 不是 `Unpin`（裡面有 timer），呼叫 `.next()` 前要先 `tokio::pin!(s)`。
 
 ## 自己實作 Stream
 
@@ -253,9 +263,10 @@ source$.pipe(
 ```
 
 ```rust
-// Rust — chunks_timeout
-let mut stream = source
+// Rust — chunks_timeout（tokio_stream::StreamExt）
+let stream = source
     .chunks_timeout(100, Duration::from_millis(500));
+tokio::pin!(stream);
 while let Some(batch) = stream.next().await {
     write_batch(batch).await;
 }

@@ -2,6 +2,8 @@
 
 > 範圍：函式簽章、閉包、Fn / FnMut / FnOnce、高階函式、move closure
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 函式：expression-based
 
 ```rust

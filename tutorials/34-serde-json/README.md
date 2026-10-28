@@ -2,6 +2,8 @@
 
 > 範圍：Serialize / Deserialize derive、欄位屬性、enum 標籤、serde_with、validator、動態 Value
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## serde 模型
 
 ```

@@ -43,7 +43,11 @@ enum Cmd {
         #[arg(default_value_t = 2000)]
         period_ms: u64,
     },
-    /// 停效果
+    /// 停效果（demo：只停得到「這個 process」裡的效果）
+    ///
+    /// 每次執行 rgb-cli 都是新的 process、新的 DeviceManager，
+    /// 所以停不到另一個終端機正在跑的效果（那邊用 Ctrl+C 停）。
+    /// 跨 process 控制需要常駐的 manager（Tauri app / daemon），見 README「你要補的部分」。
     Stop { id: String },
 }
 

@@ -2,6 +2,8 @@
 
 > 範圍：command / event 分離、aggregate、event store、projection、與 MQ 整合
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 兩個獨立但常配對的模式
 
 | 模式 | 一句話 |

@@ -2,6 +2,8 @@
 
 > 範圍：&str vs String、&[T] vs Vec<T>、UTF-8 邊界、字串切片陷阱
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 兩種字串：`&str` 與 `String`
 
 | | `&str` | `String` |

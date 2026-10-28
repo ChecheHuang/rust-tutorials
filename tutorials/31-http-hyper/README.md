@@ -2,6 +2,8 @@
 
 > 範圍：hyper 1.x client/server、reqwest、HTTP/1 vs HTTP/2
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 層次圖
 
 ```

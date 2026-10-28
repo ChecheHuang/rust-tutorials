@@ -2,6 +2,8 @@
 
 > 範圍：Result / Option、? 運算子、panic vs 可恢復錯誤、From 轉型
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 兩條軸線
 
 ```

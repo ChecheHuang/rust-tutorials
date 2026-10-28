@@ -2,6 +2,8 @@
 
 > 範圍：proto + build.rs codegen、unary、server stream、interceptor、HTTP/2 細節
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼 gRPC
 
 | 方面 | REST/JSON | gRPC |

@@ -2,6 +2,8 @@
 
 > 範圍：thiserror（library 端）vs anyhow（application 端）、錯誤鏈、backtrace
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 核心對立：library vs application
 
 第 10 章學了手寫 `enum AppError` + `From` impl。實務上有兩個社群事實標準工具自動化：

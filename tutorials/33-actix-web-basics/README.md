@@ -2,6 +2,8 @@
 
 > 範圍：App、HttpServer、web::Path / web::Json、Responder trait
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## actix-web 是什麼
 
 - Rust web 早期王者，目前仍主流之一

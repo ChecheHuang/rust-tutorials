@@ -2,6 +2,8 @@
 
 > 範圍：Entity / ActiveModel、CRUD、relation、migration、與 sqlx 取捨
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 何時用 SeaORM 而不是 sqlx
 
 | 場景 | 選擇 |

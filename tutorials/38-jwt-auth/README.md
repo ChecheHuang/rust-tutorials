@@ -2,6 +2,8 @@
 
 > 範圍：argon2 密碼雜湊、jsonwebtoken 簽發/驗證、auth middleware、extractor pattern
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 流程總覽
 
 ```

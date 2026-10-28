@@ -2,6 +2,8 @@
 
 > 範圍：mod / pub / use、pub(crate)、workspace 設定、跨 crate 依賴
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 三層組織結構
 
 ```

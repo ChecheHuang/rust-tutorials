@@ -2,6 +2,8 @@
 
 > 範圍：config / figment crate、環境變數 + 檔案 + CLI 合併、secret 處理
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 設計目標
 
 一個服務的設定有幾個層次的來源：
@@ -134,19 +136,26 @@ production：AWS Secrets Manager、HashiCorp Vault、GCP Secret Manager。Rust S
 
 ### `secrecy` crate — 防誤 log
 
-```rust
-use secrecy::{Secret, ExposeSecret};
-
-#[derive(Deserialize)]
-struct Config {
-    api_key: Secret<String>,
-}
-
-let key = cfg.api_key.expose_secret();   // 顯式
-println!("{:?}", cfg);                    // → api_key: [REDACTED]
+```toml
+# Cargo.toml — 反序列化要開 serde feature
+secrecy = { version = "0.10", features = ["serde"] }
 ```
 
-`Secret<T>` 的 `Debug` 自動 redact，避免不小心 log 出來。
+```rust
+use secrecy::{ExposeSecret, SecretString};
+
+#[derive(Debug, Deserialize)]
+struct Config {
+    api_key: SecretString,               // = SecretBox<str>
+}
+
+let key: &str = cfg.api_key.expose_secret();   // 顯式
+println!("{:?}", cfg);   // → Config { api_key: SecretBox<str>([REDACTED]) }
+```
+
+`SecretString` 的 `Debug` 自動 redact，避免不小心 log 出來；非字串的機密用 `SecretBox<T>`（例如 `SecretBox<[u8; 32]>`）。
+
+> 版本差異：`secrecy` 0.8 是 `Secret<String>`，0.10 起改成 `SecretBox<T>`／`SecretString`，`Secret<T>` 已移除。網路上舊範例很多，照抄會編譯失敗。
 
 ## Profile：dev / staging / prod
 
@@ -211,7 +220,7 @@ Node 端常見組合：`dotenv` 載 `.env`、`zod` / `joi` 驗證 schema、自�
 | 從 struct 推 schema | Zod 推 TypeScript | serde derive 用 struct 當 schema |
 | 環境變數 prefix | 自己約定 | `Env::prefixed("APP_")` |
 | Profile（dev/prod） | `NODE_ENV` + 多檔 | figment profile 概念 |
-| Secret 別 log | 自己 redact | `secrecy::Secret<T>` 預設 redact |
+| Secret 別 log | 自己 redact | `secrecy::SecretString` / `SecretBox<T>` 預設 redact |
 | Secret 來源 | env var / Vault / SSM | env var / Vault / SSM（rust SDK） |
 | Hot reload | `chokidar` watch + reload | `notify` crate + `watch::Sender` |
 
@@ -279,17 +288,17 @@ const dbPassword = process.env.DB_PASSWORD;
 ```
 
 ```rust
-// Rust — secrecy crate
-use secrecy::{Secret, ExposeSecret};
+// Rust — secrecy crate（0.10）
+use secrecy::{ExposeSecret, SecretString};
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 struct Config {
-    db_password: Secret<String>,
+    db_password: SecretString,
 }
 
 let cfg: Config = ...;
-let pw = cfg.db_password.expose_secret();
-println!("{:?}", cfg);   // → db_password: [REDACTED]
+let pw: &str = cfg.db_password.expose_secret();
+println!("{:?}", cfg);   // → db_password: SecretBox<str>([REDACTED])
 ```
 
 ### 心智模型差異
@@ -298,7 +307,7 @@ println!("{:?}", cfg);   // → db_password: [REDACTED]
 2. **缺欄位編譯失敗**。TS 拿 `process.env.X` 永遠是 `string | undefined`，要自己 narrowing。Rust deserialize 缺欄位**直接 error**（除非 `#[serde(default)]`）——壞設定提前死。
 3. **multi-source merge 是 first-class**。Node 拼 `dotenv` + JSON + CLI 多半自己寫；Rust figment 一行串：`Figment::new().merge(...).merge(...).merge(...)`。最後 merge 的優先。
 4. **TOML 是 Rust 預設**。Node 多用 JSON / YAML；Rust 預設 TOML（`Cargo.toml` 也是 TOML），社群偏好。差別不大，習慣後 TOML 對註解友善。
-5. **`Secret<T>` 防誤 log**。對應 TS 沒有專屬型別——隨便 `console.log(cfg)` 就洩漏。Rust `Secret<String>` 的 `Debug` 預設印 `[REDACTED]`，要拿值必須 `expose_secret()`，明確「我知道在做什麼」。
+5. **`SecretString` 防誤 log**。對應 TS 沒有專屬型別——隨便 `console.log(cfg)` 就洩漏。Rust `SecretString` 的 `Debug` 預設印 `[REDACTED]`，要拿值必須 `expose_secret()`，明確「我知道在做什麼」。
 6. **`.env` 在 production 是反 pattern**。Node 生態歷史上 dotenv 進 production 很常見，但實務上 K8s Secret / Vault / SSM 更好。Rust 慣例：`.env` 只是 dev 方便，production 從 env var 注入。
 7. **deny_unknown_fields**。production 服務建議加 `#[serde(deny_unknown_fields)]`——key 拼錯不會被當成 silent default，直接報錯。對應 TS Zod 的 `.strict()`。
 8. **hot reload 不是必需**。Node 用 `chokidar` watch `.env` 改動 reload 是某些 dev workflow；Rust 用 `notify` + `tokio::sync::watch::Sender` 一樣可做，但 production 慣例是「**重啟服務換設定**」（K8s rolling restart）。
@@ -315,7 +324,7 @@ println!("{:?}", cfg);   // → db_password: [REDACTED]
 
 1. 把本章手刻方案改成用 `figment`，比較程式碼複雜度。
 2. 加 `[dev]` 與 `[prod]` profile，用 `APP_PROFILE` 切換。
-3. 用 `secrecy::Secret<String>` 包 `db_password`，確認 `println!("{cfg:?}")` 不會洩漏。
+3. 用 `secrecy::SecretString` 包 `db_password`，確認 `println!("{cfg:?}")` 不會洩漏。
 4. 把 default 改成「找 `app.toml`，找不到就用內嵌 default」。
 
 ## 延伸閱讀

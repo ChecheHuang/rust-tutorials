@@ -1,6 +1,6 @@
 # Rust Tutorials Roadmap
 
-本文件說明 50 章的設計理由、學習目標與相依關係。對應索引見 [README.md](./README.md)。
+本文件說明 54 章的設計理由、學習目標與相依關係。對應索引見 [README.md](./README.md)。
 
 ## 設計原則
 
@@ -108,7 +108,7 @@
 
 ## Capstones
 
-整合多章節技能的小型實戰專案，獨立於 50 章主線，放在 `capstones/` 目錄。
+整合多章節技能的小型實戰專案，獨立於 54 章主線，放在 `capstones/` 目錄。
 
 ### Capstone 1 — CLI 工具
 

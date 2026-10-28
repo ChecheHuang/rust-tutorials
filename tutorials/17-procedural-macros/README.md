@@ -2,6 +2,8 @@
 
 > 範圍：derive / attribute / function-like、syn + quote + proc-macro2、何時用何時不用
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 跟 declarative macro 的差別
 
 | | `macro_rules!`（宣告式） | proc macro（過程式） |

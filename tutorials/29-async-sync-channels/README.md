@@ -2,6 +2,8 @@
 
 > 範圍：tokio Mutex / RwLock、mpsc / broadcast / watch / oneshot
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 四種 channel — 各有所用
 
 | Channel | 行為 | 用途 |

@@ -2,6 +2,8 @@
 
 > 範圍：if / else、loop / while / for、match、if let、while let、`@` binding、let else
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 核心觀念：一切是 expression
 
 C / Java 把控制流當 statement（不回值），Rust 把它們當 **expression**——`if`、`match`、`loop` 都能賦值給變數。

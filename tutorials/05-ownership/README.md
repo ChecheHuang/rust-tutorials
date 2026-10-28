@@ -2,6 +2,8 @@
 
 > 範圍：move 語意、Copy vs Clone、Drop、函式參數移動
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼有 Ownership
 
 C/C++ 的問題：`free` 太早 = use-after-free；忘 `free` = leak；同個 buffer 兩處 free = double-free。GC 語言（Go / Java）用 runtime 解決，代價是 STW、難預測延遲、無法精準控制資源。

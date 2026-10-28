@@ -2,6 +2,8 @@
 
 > 範圍：async fn、.await、Future trait、Poll、為什麼需要 executor
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼有 async
 
 Rust 標準的 `std::thread::spawn` 是 **OS thread**：每個 thread 至少 ~2MB stack、context switch 要進 kernel。要服務 10K 並發連線時，10K thread 不可行（記憶體 / scheduling 都吃不消）。

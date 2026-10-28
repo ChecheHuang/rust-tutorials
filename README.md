@@ -1,10 +1,12 @@
 # Rust Tutorials
 
-從零開始學 Rust，由語言核心一路走到分散式系統。共 **50 章**、分 **7 個 Part**，Web 層採 **axum + actix-web 雙框架對照**。
+從零開始學 Rust，由語言核心一路走到分散式系統。共 **54 章**、分 **8 個 Part**，Web 層採 **axum + actix-web 雙框架對照**，最後以 Tauri 桌面開發收尾。
 
 > 完整章節規劃與設計理由見 [ROADMAP.md](./ROADMAP.md)。
 >
 > 從 TypeScript 來學 Rust：每章 Part 1–4（01–30）都附「對照 TypeScript」區段；頂層速查表見 [TS-RUST-CHEATSHEET.md](./TS-RUST-CHEATSHEET.md)。
+>
+> 🧸 想先用故事直覺理解？每章與每個 capstone 都附 `STORY.md` 故事版（小學生都懂的比喻版）。
 
 ## 目錄
 
@@ -96,7 +98,7 @@
 
 ## Capstones
 
-整合多章節技能的小型實戰專案，獨立於 50 章主線。
+整合多章節技能的小型實戰專案，獨立於 54 章主線。
 
 | # | 專案 | 預計章節依賴 |
 |---|------|--------------|

@@ -2,6 +2,8 @@
 
 > 範圍：#[test]、整合測試、doc test、mockall、cargo nextest
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Rust 測試的三種等級
 
 | 層級 | 位置 | 看到 |

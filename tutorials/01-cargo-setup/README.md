@@ -2,6 +2,8 @@
 
 > 範圍：rustup、cargo、edition、rust-analyzer、cargo fmt/clippy、Hello World
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼從 Cargo 開始
 
 Rust 與 C/C++ 最大的工程差別之一是「**工具鏈統一**」。其他語言常常 build system、套件管理、formatter、linter、文件產生各自為政；Rust 從 day 1 就是 `cargo` 一條鞭。學語言之前先把工具鏈摸熟，後面所有章節都靠它。

@@ -2,6 +2,8 @@
 
 > 範圍：tracing、tracing-subscriber、span、event、結構化欄位、與 OTel 接合預備
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼不是 `println!` / `log` crate
 
 `println!` 沒等級、沒過濾、沒結構。`log` crate 有等級但**沒結構**——還是純字串。

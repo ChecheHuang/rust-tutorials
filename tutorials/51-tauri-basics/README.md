@@ -2,6 +2,8 @@
 
 > 範圍：架構、`#[tauri::command]`、State、event、跟 Electron 的取捨
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Tauri vs Electron 一句話
 
 | | Electron | Tauri |

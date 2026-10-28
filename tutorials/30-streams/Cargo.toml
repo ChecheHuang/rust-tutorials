@@ -9,5 +9,5 @@ path = "src/main.rs"
 
 [dependencies]
 tokio = { workspace = true }
-tokio-stream = "0.1"
+tokio-stream = { version = "0.1", features = ["time"] }
 futures = { workspace = true }

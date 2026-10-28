@@ -2,6 +2,8 @@
 
 > 範圍：fragment specifier、repetition、衛生規則、實作小型 DSL
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼要 macro
 
 函式做不到的事：

@@ -2,6 +2,8 @@
 
 > 範圍：構造函式注入、`Arc<dyn Trait>`、shaku container、什麼時候需要框架
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 「DI 框架」在 Rust 是反 idiomatic 的
 
 Java / .NET 大量 DI 框架的痛點 Rust 沒那麼大：

@@ -2,6 +2,8 @@
 
 > 範圍：握手升級、split sink/stream、broadcast 聊天室、心跳、與 SSE 比較
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## WebSocket 在 axum 的形狀
 
 ```rust

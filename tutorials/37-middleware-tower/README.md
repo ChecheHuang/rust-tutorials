@@ -2,6 +2,8 @@
 
 > 範圍：tower Service/Layer、`middleware::from_fn`、tower-http、與 actix middleware 對比
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## tower：Service trait
 
 tower 的核心抽象：

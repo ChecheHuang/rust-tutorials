@@ -2,6 +2,8 @@
 
 > 範圍：HID 協定、`hidapi` crate、enumerate、input/output report、Tauri 整合、平台權限
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## HID 是什麼
 
 USB **Human Interface Device** — 鍵盤、滑鼠、遊戲手把、繪圖板，**還有 RGB 控制器**、巨集鍵盤、IoT dongle 也常走 HID（因為 HID 在所有 OS 上不必裝 driver）。

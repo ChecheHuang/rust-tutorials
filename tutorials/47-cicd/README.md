@@ -2,6 +2,8 @@
 
 > 範圍：GitHub Actions、fmt/clippy/test、cache、安全掃描、跨平台、docker push
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 一個能跑的 pipeline 要做什麼
 
 1. **lint**：fmt、clippy（fail on warning）

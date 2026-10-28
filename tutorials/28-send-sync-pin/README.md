@@ -2,6 +2,8 @@
 
 > 範圍：Send / Sync 規則、Pin / Unpin、self-referential 結構
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Send 與 Sync — 跨執行緒的兩個 marker trait
 
 ```rust

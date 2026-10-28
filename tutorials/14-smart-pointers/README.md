@@ -2,6 +2,8 @@
 
 > 範圍：Box、Rc、Arc、RefCell、Mutex、Cow，何時用哪一個
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 決策樹
 
 ```

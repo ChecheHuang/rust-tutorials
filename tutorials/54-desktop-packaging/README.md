@@ -2,6 +2,8 @@
 
 > 範圍：`tauri build`、Windows 簽章、macOS notarization、Linux AppImage / Flatpak、自動更新（updater）、CI release pipeline
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 打包目標
 
 ```bash

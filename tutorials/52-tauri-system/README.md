@@ -2,6 +2,8 @@
 
 > 範圍：plugin 系統、檔案 / dialog / 通知 / 剪貼簿、tray icon、global shortcut、window 管理、auto-start
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## Plugin 系統
 
 Tauri 2 把大多數系統能力拆成 plugin（v1 是 allowlist 內建）。要用先安裝 + 註冊 + permission。

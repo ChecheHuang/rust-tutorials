@@ -2,6 +2,8 @@
 
 > 範圍：多階段 build、distroless / scratch、cargo-chef 加速、static link、image 安全
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼 Rust Docker image 容易踩雷
 
 - 預設 build 拉所有依賴重編 → 沒 cache 化每次 10+ 分鐘

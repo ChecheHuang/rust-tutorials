@@ -2,6 +2,8 @@
 
 > 範圍：tokio-console、flamegraph、pprof、timeout / retry / circuit breaker / rate limit
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 兩個獨立但相關的主題
 
 1. **profiling**：找慢、找 leak、找 deadlock
@@ -119,9 +121,11 @@ closed   → 正常通過，計失敗
 open     → 直接拒絕，不打後端
   ↓ 冷卻時間
 half-open → 放少量探測
-  ↓ 成功
-closed
+  ↓ 成功              ↓ 失敗
+closed              回到 open
 ```
+
+本範例的 `BreakerState` 就是這三態：half-open 時只放**一個**探測請求，其他請求照樣快速失敗；探測成功回 closed，失敗重新 open 並再冷卻一輪。
 
 **避免雪崩**：後端炸了，client 還拼命 retry → 後端更炸。breaker 開啟後快速失敗，給後端喘息。
 

@@ -2,6 +2,8 @@
 
 > 範圍：Iterator trait、adapter chain、collect、fold、lazy evaluation、自訂 iterator
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 核心：`Iterator` trait
 
 ```rust

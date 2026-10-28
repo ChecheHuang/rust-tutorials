@@ -2,6 +2,8 @@
 
 > 範圍：NATS / Redis Streams / Kafka / RabbitMQ 取捨、producer / consumer、consumer group、at-least-once
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼要 MQ
 
 - **解耦**：生產者不知道誰會處理

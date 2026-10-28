@@ -2,6 +2,8 @@
 
 > 範圍：criterion、micro-benchmark、避免被編譯器優化掉、與 profiling 銜接
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼不用 `Instant`
 
 ```rust

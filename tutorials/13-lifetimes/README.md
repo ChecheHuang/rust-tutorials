@@ -2,6 +2,8 @@
 
 > 範圍：lifetime 標註、'static、HRTB、elision 規則、struct 內的引用
 
+> 🧸 想先用故事直覺理解這章？看 [STORY.md](./STORY.md)（小學生都懂的比喻版）。
+
 ## 為什麼有 Lifetime
 
 第 06 章學到：reference 不能 dangle。編譯器要能判斷「**這個 reference 是不是還活著**」。
